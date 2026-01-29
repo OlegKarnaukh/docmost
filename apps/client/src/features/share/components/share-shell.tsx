@@ -5,6 +5,7 @@ import {
   ScrollArea,
   Text,
   TextInput,
+  Tooltip,
 } from "@mantine/core";
 import { useGetSharedPageTreeQuery } from "@/features/share/queries/share-query.ts";
 import { useParams } from "react-router-dom";
@@ -18,6 +19,8 @@ import {
   mobileSidebarAtom,
 } from "@/components/layouts/global/hooks/atoms/sidebar-atom.ts";
 import { useTranslation } from "react-i18next";
+import { useToggleSidebar } from "@/components/layouts/global/hooks/hooks/use-toggle-sidebar.ts";
+import SidebarToggle from "@/components/ui/sidebar-toggle-button.tsx";
 import classes from "./share.module.css";
 import { ShareSearchSpotlight } from "@/features/search/components/share-search-spotlight.tsx";
 import { shareSearchSpotlight } from "@/features/search/constants";
@@ -33,6 +36,8 @@ export default function ShareShell({
   const { t } = useTranslation();
   const [mobileOpened] = useAtom(mobileSidebarAtom);
   const [desktopOpened] = useAtom(desktopSidebarAtom);
+  const toggleMobile = useToggleSidebar(mobileSidebarAtom);
+  const toggleDesktop = useToggleSidebar(desktopSidebarAtom);
 
   const { shareId } = useParams();
   const { data } = useGetSharedPageTreeQuery(shareId);
@@ -96,6 +101,27 @@ export default function ShareShell({
       </AppShell.Navbar>
 
       <AppShell.Main>
+        <Box mb="sm">
+          <Tooltip label={t("Toggle sidebar")}>
+            <SidebarToggle
+              aria-label={t("Toggle sidebar")}
+              opened={mobileOpened}
+              onClick={toggleMobile}
+              hiddenFrom="sm"
+              size="sm"
+            />
+          </Tooltip>
+
+          <Tooltip label={t("Toggle sidebar")}>
+            <SidebarToggle
+              aria-label={t("Toggle sidebar")}
+              opened={desktopOpened}
+              onClick={toggleDesktop}
+              visibleFrom="sm"
+              size="sm"
+            />
+          </Tooltip>
+        </Box>
         {children}
       </AppShell.Main>
 
