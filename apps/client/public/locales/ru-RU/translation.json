@@ -573,5 +573,7 @@
   "No answer available": "Ответ недоступен",
   "Background color": "Цвет фона",
   "Highlight color": "Цвет выделения",
-  "Remove color": "Удалить цвет"
+  "Remove color": "Удалить цвет",
+  "No table of contents.": "Нет содержания.",
+  "Toggle Color Scheme": "Переключить цветовую схему"
 }

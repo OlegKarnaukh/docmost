@@ -5,14 +5,16 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import { IconMoon, IconSun } from "@tabler/icons-react";
+import { useTranslation } from "react-i18next";
 import classes from "./theme-toggle.module.css";
 
 export function ThemeToggle() {
+  const { t } = useTranslation();
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme();
 
   return (
-    <Tooltip label="Toggle Color Scheme">
+    <Tooltip label={t("Toggle Color Scheme")}>
       <ActionIcon
         variant="default"
         onClick={() => {
