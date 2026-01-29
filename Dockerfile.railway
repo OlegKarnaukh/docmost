@@ -1,0 +1,11 @@
+# Railway Dockerfile for Docmost
+# Uses the official Docmost image
+FROM docmost/docmost:latest
+
+# Railway injects PORT automatically
+ENV PORT=3000
+
+EXPOSE 3000
+
+# Default command from the original image
+CMD ["node", "dist/src/main.js"]

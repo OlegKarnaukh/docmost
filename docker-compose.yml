@@ -1,0 +1,59 @@
+version: "3.8"
+
+services:
+  docmost:
+    image: docmost/docmost:latest
+    container_name: docmost
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      APP_URL: ${APP_URL}
+      APP_SECRET: ${APP_SECRET}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://docmost:docmost_secret@postgres:5432/docmost}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - docmost-network
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: docmost-postgres
+    environment:
+      POSTGRES_DB: docmost
+      POSTGRES_USER: docmost
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-docmost_secret}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U docmost -d docmost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - docmost-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: docmost-redis
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - docmost-network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  docmost-network:
+    driver: bridge
