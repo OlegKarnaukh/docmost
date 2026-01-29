@@ -9,7 +9,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 RUN pnpm build
 
 FROM base AS installer
@@ -41,7 +41,7 @@ RUN chown -R node:node /app
 
 USER node
 
-RUN pnpm install --frozen-lockfile --prod
+RUN pnpm install --prod
 
 RUN mkdir -p /app/data/storage
 
