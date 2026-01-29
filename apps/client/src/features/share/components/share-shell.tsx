@@ -5,7 +5,6 @@ import {
   ScrollArea,
   Text,
   TextInput,
-  Tooltip,
 } from "@mantine/core";
 import { useGetSharedPageTreeQuery } from "@/features/share/queries/share-query.ts";
 import { useParams } from "react-router-dom";
@@ -102,25 +101,21 @@ export default function ShareShell({
 
       <AppShell.Main>
         <Box mb="sm">
-          <Tooltip label={t("Toggle sidebar")}>
-            <SidebarToggle
-              aria-label={t("Toggle sidebar")}
-              opened={mobileOpened}
-              onClick={toggleMobile}
-              hiddenFrom="sm"
-              size="sm"
-            />
-          </Tooltip>
+          <SidebarToggle
+            aria-label={t("Toggle sidebar")}
+            opened={mobileOpened}
+            onClick={toggleMobile}
+            hiddenFrom="sm"
+            size="sm"
+          />
 
-          <Tooltip label={t("Toggle sidebar")}>
-            <SidebarToggle
-              aria-label={t("Toggle sidebar")}
-              opened={desktopOpened}
-              onClick={toggleDesktop}
-              visibleFrom="sm"
-              size="sm"
-            />
-          </Tooltip>
+          <SidebarToggle
+            aria-label={t("Toggle sidebar")}
+            opened={desktopOpened}
+            onClick={toggleDesktop}
+            visibleFrom="sm"
+            size="sm"
+          />
         </Box>
         {children}
       </AppShell.Main>
