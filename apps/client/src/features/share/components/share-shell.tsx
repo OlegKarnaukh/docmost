@@ -74,7 +74,7 @@ export default function ShareShell({
         <Box mb="md">
           <Box style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <IconBook size={24} stroke={1.5} />
-            <Text size="lg" fw={600}>Олег Карнаух</Text>
+            <Text size="lg" fw={600}>Олег Карнаух | ИИ-База</Text>
           </Box>
         </Box>
 
